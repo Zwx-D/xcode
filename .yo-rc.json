@@ -1,0 +1,38 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.xcode.app"
+    },
+    "jhipsterVersion": "6.8.0",
+    "applicationType": "monolith",
+    "baseName": "xcode",
+    "packageName": "com.xcode.app",
+    "packageFolder": "com/xcode/app",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "redis",
+    "enableHibernateCache": false,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "gradle",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "MzY5MTlkYjY3NGU2YzdkZTVjNGI0MjNlZmI2ZWZlMjdmMjdjYThkN2M5NTFmMjQwNWJiYmM2OTY1ZTY5YWJlNzI0OTI2OWY2YTJmOTc2YTA0ZTg4ZGE4OTkwNWYzMDk5ZDkzM2Q2ZjcxMzNlY2VlNTZkZjdiMjI5NjU3OTE3YmM=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "skipClient": true,
+    "creationTimestamp": 1716220507187,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false,
+    "blueprints": []
+  }
+}

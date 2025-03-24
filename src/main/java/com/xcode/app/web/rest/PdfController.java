@@ -60,4 +60,15 @@ public class PdfController {
         }
     }
 
+    @GetMapping("/generatePinYinPdf")
+    public ResponseEntity<InputStreamResource> GeneratePinYinPdf(@RequestParam("text") String text,@RequestParam("title") String title){
+        ByteArrayInputStream bis = pdfService.GeneratePinYinPdf(text,title);
+        headers.add("Content-Disposition", "inline; filename=simple.pdf");
+        return ResponseEntity
+            .ok()
+            .headers(headers)
+            .contentType(MediaType.APPLICATION_PDF)
+            .body(new InputStreamResource(bis));
+    }
+
 }

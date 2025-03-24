@@ -1,17 +1,3 @@
-# ===================================================================
-# Spring Boot configuration for the "dev" profile.
-#
-# This configuration overrides the application.yml file.
-#
-# More information on profiles: https://www.jhipster.tech/profiles/
-# More information on configuration properties: https://www.jhipster.tech/common-application-properties/
-# ===================================================================
-
-# ===================================================================
-# Standard Spring Boot properties.
-# Full reference is available at:
-# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
-# ===================================================================
 
 logging:
   level:
@@ -56,6 +42,8 @@ spring:
       hibernate.cache.use_second_level_cache: false
       hibernate.cache.use_query_cache: false
       hibernate.generate_statistics: false
+    hibernate:
+      ddl-auto: update
   liquibase:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
@@ -71,12 +59,6 @@ spring:
 
 server:
   port: 8080
-
-# ===================================================================
-# JHipster specific properties
-#
-# Full reference is available at: https://www.jhipster.tech/common-application-properties/
-# ===================================================================
 
 jhipster:
   cache: # Cache configuration
@@ -118,13 +100,15 @@ jhipster:
   audit-events:
     retention-period: 30 # Number of days before audit events are deleted.
 
-# ===================================================================
-# Application specific properties
-# Add your own application properties here, see the ApplicationProperties class
-# to have type-safe configuration, like in the JHipsterProperties above
-#
-# More documentation is available at:
-# https://www.jhipster.tech/common-application-properties/
-# ===================================================================
+upload:
+  root:
+    directory: file/upload
 
-# application:
+deepseek:
+  baseUrl: 'https://api.deepseek.com'
+  appKey: 'sk-cbdabb7b92c3444fadda70beff044514'
+  # deepseek-chat 模型已全面升级为 DeepSeek-V3，接口不变。 通过指定 model='deepseek-chat' 即可调用 DeepSeek-V3。
+  # deepseek-reasoner 是 DeepSeek 最新推出的推理模型 DeepSeek-R1。通过指定 model='deepseek-reasoner'，即可调用 DeepSeek-R1。
+  model: 'deepseek-chat'
+
+  chatUrl: '/chat/completions'

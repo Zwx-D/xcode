@@ -9,6 +9,9 @@ import com.xcode.app.security.AuthoritiesConstants;
 import com.xcode.app.security.SecurityUtils;
 import com.xcode.app.service.dto.UserDTO;
 
+import com.xcode.app.service.exception.EmailAlreadyUsedException;
+import com.xcode.app.service.exception.InvalidPasswordException;
+import com.xcode.app.service.exception.UsernameAlreadyUsedException;
 import io.github.jhipster.security.RandomUtil;
 
 import org.slf4j.Logger;

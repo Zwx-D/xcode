@@ -1,5 +1,6 @@
 package com.xcode.app.web.rest.errors;
 
+import com.xcode.app.service.exception.UsernameAlreadyUsedException;
 import io.github.jhipster.web.util.HeaderUtil;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -92,19 +93,19 @@ public class ExceptionTranslator implements ProblemHandling, SecurityAdviceTrait
     }
 
     @ExceptionHandler
-    public ResponseEntity<Problem> handleEmailAlreadyUsedException(com.xcode.app.service.EmailAlreadyUsedException ex, NativeWebRequest request) {
+    public ResponseEntity<Problem> handleEmailAlreadyUsedException(com.xcode.app.service.exception.EmailAlreadyUsedException ex, NativeWebRequest request) {
         EmailAlreadyUsedException problem = new EmailAlreadyUsedException();
         return create(problem, request, HeaderUtil.createFailureAlert(applicationName,  false, problem.getEntityName(), problem.getErrorKey(), problem.getMessage()));
     }
 
     @ExceptionHandler
-    public ResponseEntity<Problem> handleUsernameAlreadyUsedException(com.xcode.app.service.UsernameAlreadyUsedException ex, NativeWebRequest request) {
+    public ResponseEntity<Problem> handleUsernameAlreadyUsedException(UsernameAlreadyUsedException ex, NativeWebRequest request) {
         LoginAlreadyUsedException problem = new LoginAlreadyUsedException();
         return create(problem, request, HeaderUtil.createFailureAlert(applicationName,  false, problem.getEntityName(), problem.getErrorKey(), problem.getMessage()));
     }
 
     @ExceptionHandler
-    public ResponseEntity<Problem> handleInvalidPasswordException(com.xcode.app.service.InvalidPasswordException ex, NativeWebRequest request) {
+    public ResponseEntity<Problem> handleInvalidPasswordException(com.xcode.app.service.exception.InvalidPasswordException ex, NativeWebRequest request) {
         return create(new InvalidPasswordException(), request);
     }
 

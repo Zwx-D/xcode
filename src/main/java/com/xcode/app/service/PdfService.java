@@ -8,4 +8,6 @@ public interface PdfService {
     ByteArrayInputStream simpleGeneratePdf();
 
     ByteArrayInputStream addWatermark(InputStream pdfInputStream, String watermarkText);
+
+    ByteArrayInputStream GeneratePinYinPdf(String text,String title);
 }

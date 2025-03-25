@@ -33,6 +33,8 @@ public class BackendUserDetailsService implements UserDetailsService {
             .flatMap(role -> role.getPermissions().stream())
             .map(permission -> new SimpleGrantedAuthority(permission.getPermissionName()))
             .collect(Collectors.toList());
+        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_BACKENDUSER"));
         return new User(
             backendUser.getUsername(),
             backendUser.getPassword(),

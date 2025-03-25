@@ -10,8 +10,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BackendUserDetailsService implements UserDetailsService {
@@ -27,8 +29,10 @@ public class BackendUserDetailsService implements UserDetailsService {
         BackendUser backendUser = backendUserRepository.findByUsername(username)
             .orElseThrow(() -> new UsernameNotFoundException("不存在当前用户: " + username));
 
-        List<GrantedAuthority> authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
-
+        List<GrantedAuthority> authorities = backendUser.getRoles().stream()
+            .flatMap(role -> role.getPermissions().stream())
+            .map(permission -> new SimpleGrantedAuthority(permission.getPermissionName()))
+            .collect(Collectors.toList());
         return new User(
             backendUser.getUsername(),
             backendUser.getPassword(),

@@ -65,79 +65,15 @@ public class BackendUserServiceImpl implements BackendUserService {
 
     @Override
     public String loginUser(String username, String password) {
-//        BackendUser user = backendUserRepository.findByUsername(username)
-//            .orElseThrow(() -> new UserLoginException("用户不存在"));
-//
-//        if (!passwordEncoder.matches(password, user.getPassword())) {
-//            throw new UserLoginException("密码错误");
-//        }
-//
-//        if (!user.getEnabled()) {
-//            throw new UserLoginException("用户账号已禁用");
-//        }
-//
-//        user.setLastLoginTime(LocalDateTime.now());
-//        backendUserRepository.save(user);
-//
-//        Set<Permission> allPermissions = new HashSet<>();
-//        for (Role role : user.getRoles()) {
-//            allPermissions.addAll(role.getPermissions());
-//        }
-//
-//        Set<Menu> accessibleMenus;
-//        if (isSuperAdmin(user)) {
-//            accessibleMenus = new HashSet<>(menuRepository.findAll());
-//        } else {
-//            accessibleMenus = new HashSet<>();
-//            for (Permission permission : allPermissions) {
-//                for (Menu menu : getMenusByPermission(permission)) {
-//                    accessibleMenus.add(menu);
-//                }
-//            }
-//        }
-//
-//        BackendUserVM userVM = new BackendUserVM();
-//        userVM.setId(user.getId());
-//        userVM.setUsername(user.getUsername());
-//        userVM.setRealName(user.getRealName());
-//        userVM.setEmail(user.getEmail());
-//        userVM.setPhone(user.getPhone());
-//        userVM.setEnabled(user.getEnabled());
-//        userVM.setLastLoginTime(user.getLastLoginTime());
-//        userVM.setRoles(user.getRoles());
-//        userVM.setPermissions(allPermissions);
-//        userVM.setMenus(accessibleMenus);
-
-
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
                 username,
                 password
             )
         );
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = tokenProvider.createToken(authentication);
-
-//        return jwtUtils.generateJwtToken(userVM);
         return jwt;
-    }
-
-
-    private boolean hasPermission(BackendUser user, String permissionName) {
-        return user.getRoles().stream()
-            .flatMap(role -> role.getPermissions().stream())
-            .anyMatch(permission -> permission.getPermissionName().equals(permissionName));
-    }
-
-    private Set<Menu> getMenusByPermission(Permission permission) {
-        return menuRepository.findAll().stream()
-            .filter(menu -> menu.getPermissions().contains(permission))
-            .collect(Collectors.toSet());
-    }
-
-    private boolean isSuperAdmin(BackendUser user) {
-        return user.getRoles().stream().anyMatch(Role::getIsSuperAdmin);
     }
 
 }

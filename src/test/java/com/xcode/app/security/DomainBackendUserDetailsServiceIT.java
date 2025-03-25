@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 @SpringBootTest(classes = XcodeApp.class)
 @ExtendWith(RedisTestContainerExtension.class)
 @Transactional
-public class DomainUserDetailsServiceIT {
+public class DomainBackendUserDetailsServiceIT {
 
     private static final String USER_ONE_LOGIN = "test-user-one";
     private static final String USER_ONE_EMAIL = "test-user-one@localhost";

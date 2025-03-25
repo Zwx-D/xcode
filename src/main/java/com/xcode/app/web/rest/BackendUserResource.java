@@ -3,12 +3,14 @@ package com.xcode.app.web.rest;
 import com.xcode.app.domain.BackendUser;
 import com.xcode.app.service.BackendUserQueryService;
 import com.xcode.app.service.BackendUserService;
+import com.xcode.app.util.HeaderUtils;
 import com.xcode.app.web.rest.api.BackendUserApi;
 import com.xcode.app.web.rest.dto.LoginDTO;
 import com.xcode.app.web.rest.filter.BackendUserFilter;
 import com.xcode.app.web.rest.vm.JwtVM;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +44,10 @@ public class BackendUserResource implements BackendUserApi {
 
     @Override
     public ResponseEntity<List<BackendUser>> getUserList(BackendUserFilter filter, Pageable pageable) {
-        return null;
+        Page<BackendUser> backendUserPage = queryService.findAllBackendUser(filter, pageable);
+        return ResponseEntity.ok()
+            .headers(HeaderUtils.createHeadersWithTotalCount(backendUserPage))
+            .body(backendUserPage.getContent());
     }
 
 }

@@ -2,6 +2,7 @@ package com.xcode.app;
 
 import com.xcode.app.config.ApplicationProperties;
 
+import com.xcode.app.config.SystemConfig;
 import io.github.jhipster.config.DefaultProfileUtil;
 import io.github.jhipster.config.JHipsterConstants;
 
@@ -21,7 +22,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @SpringBootApplication
-@EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class})
+@EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class, SystemConfig.class})
 public class XcodeApp {
 
     private static final Logger log = LoggerFactory.getLogger(XcodeApp.class);

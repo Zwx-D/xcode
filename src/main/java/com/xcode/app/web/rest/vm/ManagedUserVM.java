@@ -1,6 +1,6 @@
 package com.xcode.app.web.rest.vm;
 
-import com.xcode.app.service.dto.UserDTO;
+import com.xcode.app.web.rest.dto.UserDTO;
 import javax.validation.constraints.Size;
 
 /**

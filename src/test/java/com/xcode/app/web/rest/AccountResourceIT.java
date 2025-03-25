@@ -2,25 +2,22 @@ package com.xcode.app.web.rest;
 
 import com.xcode.app.XcodeApp;
 import com.xcode.app.config.Constants;
-import com.xcode.app.domain.Authority;
 import com.xcode.app.domain.User;
 import com.xcode.app.repository.AuthorityRepository;
 import com.xcode.app.repository.UserRepository;
 import com.xcode.app.security.AuthoritiesConstants;
 import com.xcode.app.service.UserService;
-import com.xcode.app.service.dto.PasswordChangeDTO;
-import com.xcode.app.service.dto.UserDTO;
+import com.xcode.app.web.rest.dto.PasswordChangeDTO;
+import com.xcode.app.web.rest.dto.UserDTO;
 import com.xcode.app.web.rest.vm.KeyAndPasswordVM;
 import com.xcode.app.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.RandomStringUtils;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;

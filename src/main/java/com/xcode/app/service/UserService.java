@@ -7,7 +7,7 @@ import com.xcode.app.repository.AuthorityRepository;
 import com.xcode.app.repository.UserRepository;
 import com.xcode.app.security.AuthoritiesConstants;
 import com.xcode.app.security.SecurityUtils;
-import com.xcode.app.service.dto.UserDTO;
+import com.xcode.app.web.rest.dto.UserDTO;
 
 import com.xcode.app.service.exception.EmailAlreadyUsedException;
 import com.xcode.app.service.exception.InvalidPasswordException;

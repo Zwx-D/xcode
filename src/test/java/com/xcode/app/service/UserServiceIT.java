@@ -5,7 +5,7 @@ import com.xcode.app.XcodeApp;
 import com.xcode.app.config.Constants;
 import com.xcode.app.domain.User;
 import com.xcode.app.repository.UserRepository;
-import com.xcode.app.service.dto.UserDTO;
+import com.xcode.app.web.rest.dto.UserDTO;
 
 import io.github.jhipster.security.RandomUtil;
 

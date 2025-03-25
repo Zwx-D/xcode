@@ -1,4 +1,4 @@
-package com.xcode.app.service.dto;
+package com.xcode.app.web.rest.dto;
 
 /**
  * A DTO representing a password change required data - current and new password.

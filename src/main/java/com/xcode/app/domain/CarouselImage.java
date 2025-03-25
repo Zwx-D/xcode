@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "carousel_image")
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class CarouselImage extends BaseEntity implements Serializable {
 
     @Id
@@ -19,7 +19,7 @@ public class CarouselImage extends BaseEntity implements Serializable {
     /**
      * 对应图片的uuid
      */
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String imageUuid;
 
     /**

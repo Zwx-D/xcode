@@ -1,7 +1,7 @@
 package com.xcode.app.service.mapper;
 
 import com.xcode.app.domain.User;
-import com.xcode.app.service.dto.UserDTO;
+import com.xcode.app.web.rest.dto.UserDTO;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

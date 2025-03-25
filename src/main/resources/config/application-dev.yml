@@ -104,11 +104,22 @@ upload:
   root:
     directory: file/upload
 
+system:
+  jwt:
+    secret: judKDEf2VIxS0Ahnvt5X7MqK6apE+SohtmKxTibrGguTQqAysDIjGVIwjyPseRe8S2UtmUylbhlyKbfW9QwX+Q==
+    expirationMs: 86400000
+  filesBaseUrl: ''
+  user-initialization:
+    enabled: true
+    username: 'admin'
+    password: '8888888'
+    role-name: 'ROLE_SUPER_ADMIN'
+    role-description: '系统超级管理员'
+
 deepseek:
   baseUrl: 'https://api.deepseek.com'
   appKey: 'sk-cbdabb7b92c3444fadda70beff044514'
   # deepseek-chat 模型已全面升级为 DeepSeek-V3，接口不变。 通过指定 model='deepseek-chat' 即可调用 DeepSeek-V3。
   # deepseek-reasoner 是 DeepSeek 最新推出的推理模型 DeepSeek-R1。通过指定 model='deepseek-reasoner'，即可调用 DeepSeek-R1。
   model: 'deepseek-chat'
-
   chatUrl: '/chat/completions'

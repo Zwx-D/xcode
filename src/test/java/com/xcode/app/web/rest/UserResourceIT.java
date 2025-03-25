@@ -6,7 +6,7 @@ import com.xcode.app.domain.Authority;
 import com.xcode.app.domain.User;
 import com.xcode.app.repository.UserRepository;
 import com.xcode.app.security.AuthoritiesConstants;
-import com.xcode.app.service.dto.UserDTO;
+import com.xcode.app.web.rest.dto.UserDTO;
 import com.xcode.app.service.mapper.UserMapper;
 import com.xcode.app.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.RandomStringUtils;

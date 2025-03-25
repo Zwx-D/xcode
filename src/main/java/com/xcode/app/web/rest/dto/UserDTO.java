@@ -1,4 +1,4 @@
-package com.xcode.app.service.dto;
+package com.xcode.app.web.rest.dto;
 
 import com.xcode.app.config.Constants;
 

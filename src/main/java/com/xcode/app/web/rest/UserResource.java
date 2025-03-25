@@ -6,7 +6,7 @@ import com.xcode.app.repository.UserRepository;
 import com.xcode.app.security.AuthoritiesConstants;
 import com.xcode.app.service.MailService;
 import com.xcode.app.service.UserService;
-import com.xcode.app.service.dto.UserDTO;
+import com.xcode.app.web.rest.dto.UserDTO;
 import com.xcode.app.web.rest.errors.BadRequestAlertException;
 import com.xcode.app.web.rest.errors.EmailAlreadyUsedException;
 import com.xcode.app.web.rest.errors.LoginAlreadyUsedException;

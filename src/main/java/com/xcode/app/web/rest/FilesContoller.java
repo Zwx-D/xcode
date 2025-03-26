@@ -1,6 +1,7 @@
 package com.xcode.app.web.rest;
 
 import com.xcode.app.service.FilesSerivce;
+import com.xcode.app.web.rest.vm.FilesVM;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,15 +34,15 @@ public class FilesContoller {
     private FilesSerivce filesSerivce;
 
     @PostMapping("/upload")
-    public ResponseEntity<Void> uploadImage(@RequestParam("file") MultipartFile file) {
-        filesSerivce.uploadImage(file);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<FilesVM> uploadImage(@RequestParam("file") MultipartFile file) {
+        FilesVM filesVM = filesSerivce.uploadImage(file);
+        return ResponseEntity.ok(filesVM);
     }
 
 
     @GetMapping("/download/{uuid}")
-    public ResponseEntity<Resource> downloadImage(@PathVariable String uuid) {
-        return filesSerivce.downloadImage(uuid);
+    public ResponseEntity<Resource> downloadImage(@PathVariable String uuid, @RequestParam("isDownload") Boolean isDownload) {
+        return filesSerivce.downloadImage(uuid, isDownload);
     }
 
     @GetMapping("/preview/{fileName:.+}")

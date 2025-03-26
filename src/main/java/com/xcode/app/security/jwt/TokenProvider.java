@@ -1,6 +1,8 @@
 package com.xcode.app.security.jwt;
 
 import com.xcode.app.config.SystemConfig;
+import com.xcode.app.domain.BackendUser;
+import com.xcode.app.repository.BackendUserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -11,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -25,8 +28,10 @@ public class TokenProvider {
     private static final String AUTHORITIES_KEY = "auth";
     private final Key key;
     private final long tokenValidityInMilliseconds;
+    private final BackendUserRepository backendUserRepository;
 
-    public TokenProvider(SystemConfig systemConfig) {
+    public TokenProvider(SystemConfig systemConfig, BackendUserRepository backendUserRepository) {
+        this.backendUserRepository = backendUserRepository;
         byte[] keyBytes = Decoders.BASE64.decode(systemConfig.getJwt().getSecret());
         this.key = Keys.hmacShaKeyFor(keyBytes);
         this.tokenValidityInMilliseconds = systemConfig.getJwt().getExpirationMs();
@@ -39,9 +44,11 @@ public class TokenProvider {
 
         long now = (new Date()).getTime();
         Date validity = new Date(now + this.tokenValidityInMilliseconds);
-
+        BackendUser backendUser = backendUserRepository.findByUsername(authentication.getName())
+            .orElseThrow(() -> new UsernameNotFoundException("不存在当前用户: " + authentication.getName()));
         return Jwts.builder()
             .setSubject(authentication.getName())
+            .claim("realName",backendUser.getRealName())
             .claim(AUTHORITIES_KEY, authorities)
             .signWith(key, SignatureAlgorithm.HS512)
             .setExpiration(validity)

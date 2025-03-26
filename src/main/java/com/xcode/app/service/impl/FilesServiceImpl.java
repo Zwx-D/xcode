@@ -5,6 +5,7 @@ import com.xcode.app.domain.FolderInfo;
 import com.xcode.app.repository.FileInfoRepository;
 import com.xcode.app.repository.FolderInfoRepository;
 import com.xcode.app.service.FilesSerivce;
+import com.xcode.app.web.rest.vm.FilesVM;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,18 +45,26 @@ public class FilesServiceImpl implements FilesSerivce {
     private FolderInfoRepository folderInfoRepository;
 
     @Override
-    public void uploadImage(MultipartFile file) {
+    public FilesVM uploadImage(MultipartFile file) {
         String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String currentDate = dateFormat.format(new Date());
         String directoryPath = uploadRootDir + File.separator + currentDate;
-        saveFilesRecord(currentDate, directoryPath, fileName);
-        saveFiles(file, currentDate, directoryPath, fileName);
+        FileInfo fileInfo = saveFilesRecord(currentDate, directoryPath, fileName);
+        String downloadUrl = saveFiles(file, currentDate, directoryPath, fileName);
+        return FilesVM.builder()
+            .downloadUrl(downloadUrl)
+            .filePath(fileInfo.getFilePath())
+            .folder(fileInfo.getFolder())
+            .name(fileInfo.getName())
+            .id(fileInfo.getId())
+            .uuid(fileInfo.getUuid())
+            .build();
     }
 
     @Override
     @Transactional
-    public void saveFilesRecord(String currentDate, String directoryPath, String fileName) {
+    public FileInfo saveFilesRecord(String currentDate, String directoryPath, String fileName) {
         Optional<FolderInfo> folderInfoOptional = folderInfoRepository.findOneByNameAndParentIsNull(currentDate);
         FolderInfo folderInfo;
         if (folderInfoOptional.isPresent()) {
@@ -71,12 +80,12 @@ public class FilesServiceImpl implements FilesSerivce {
         fileInfo.setFolder(folderInfo);
         fileInfo.setFilePath(directoryPath + "\\" + fileName);
         log.info("文件:{}", fileInfo);
-        fileInfoRepository.save(fileInfo);
-
+        FileInfo save = fileInfoRepository.save(fileInfo);
+        return save;
     }
 
     @Override
-    public ResponseEntity<Resource> downloadImage(String uuid) {
+    public ResponseEntity<Resource> downloadImage(String uuid, Boolean isDownload) {
         FileInfo fileInfo = Optional.ofNullable(fileInfoRepository.findOneByUuid(uuid))
             .map(Optional::get)
             .orElseThrow(() -> {
@@ -85,7 +94,7 @@ public class FilesServiceImpl implements FilesSerivce {
         try {
             // Load file as Resource
             Path filePath = Paths.get("").resolve(fileInfo.getFilePath()).normalize();
-            log.info("实际文件路径:{}",filePath.toUri());
+            log.info("实际文件路径:{}", filePath.toUri());
             Resource resource = new UrlResource(filePath.toUri());
             // Check if file exists
             if (resource.exists()) {
@@ -93,7 +102,9 @@ public class FilesServiceImpl implements FilesSerivce {
                 String contentType = Files.probeContentType(filePath);
                 HttpHeaders headers = new HttpHeaders();
                 headers.setContentType(MediaType.parseMediaType(contentType));
-                headers.setContentDispositionFormData("attachment", fileInfo.getName());
+                if (isDownload) {
+                    headers.setContentDispositionFormData("attachment", fileInfo.getName());
+                }
 
                 return new ResponseEntity<>(resource, headers, HttpStatus.OK);
             } else {

@@ -45,31 +45,6 @@ public class FilesContoller {
         return filesSerivce.downloadImage(uuid, isDownload);
     }
 
-    @GetMapping("/preview/{fileName:.+}")
-    public ResponseEntity<Resource> previewImage(@PathVariable String fileName) {
-        try {
-            // Load file as Resource
-            Path filePath = Paths.get(UPLOAD_DIR).resolve(fileName).normalize();
-            Resource resource = new UrlResource(filePath.toUri());
-
-            // Check if file exists
-            if (resource.exists()) {
-                // Set content type
-                String contentType = Files.probeContentType(filePath);
-                HttpHeaders headers = new HttpHeaders();
-                headers.setContentType(MediaType.parseMediaType(contentType));
-
-                return new ResponseEntity<>(resource, headers, HttpStatus.OK);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (MalformedURLException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
 //    @PostMapping("/img/compress")
 //    public ResponseEntity<byte[]> compressImage(@RequestParam("file") MultipartFile file) {
 //        try {

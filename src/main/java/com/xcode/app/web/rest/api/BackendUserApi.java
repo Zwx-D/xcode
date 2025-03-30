@@ -2,7 +2,7 @@ package com.xcode.app.web.rest.api;
 
 import com.xcode.app.domain.BackendUser;
 import com.xcode.app.web.rest.dto.LoginDTO;
-import com.xcode.app.web.rest.filter.BackendUserFilter;
+import com.xcode.app.web.rest.filter.BackendUserCriteria;
 import com.xcode.app.web.rest.vm.JwtVM;
 import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +23,7 @@ public interface BackendUserApi {
     ResponseEntity<JwtVM> login(@RequestBody LoginDTO login);
 
     @GetMapping("/backendUser/getUserList")
-    ResponseEntity<List<BackendUser>> getUserList(@SpringQueryMap BackendUserFilter filter,
-                                                  @PageableDefault(size = 20) Pageable pageable);
+    ResponseEntity<List<BackendUser>> getUserList(@SpringQueryMap BackendUserCriteria filter,
+                                                  @PageableDefault(page = 0,size = 10) Pageable pageable);
 
 }

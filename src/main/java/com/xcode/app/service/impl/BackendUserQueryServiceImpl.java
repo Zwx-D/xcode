@@ -4,7 +4,7 @@ import com.xcode.app.domain.BackendUser;
 import com.xcode.app.domain.BackendUser_;
 import com.xcode.app.repository.BackendUserRepository;
 import com.xcode.app.service.BackendUserQueryService;
-import com.xcode.app.web.rest.filter.BackendUserFilter;
+import com.xcode.app.web.rest.filter.BackendUserCriteria;
 import io.github.jhipster.service.QueryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +20,12 @@ public class BackendUserQueryServiceImpl extends QueryService<BackendUser> imple
     @Autowired
     private BackendUserRepository backendUserRepository;
 
-    public Page<BackendUser> findAllBackendUser(BackendUserFilter filter, Pageable pageable) {
+    public Page<BackendUser> findByCriteria(BackendUserCriteria filter, Pageable pageable) {
         Specification<BackendUser> spec = createSpecification(filter);
         return backendUserRepository.findAll(spec, pageable);
     }
 
-    private Specification<BackendUser> createSpecification(BackendUserFilter filter) {
+    private Specification<BackendUser> createSpecification(BackendUserCriteria filter) {
         Specification<BackendUser> specification = Specification.where(null);
         if (filter != null) {
             if (filter.getUsername() != null) {

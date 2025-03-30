@@ -24,28 +24,18 @@ public class CarouselImageServiceImpl implements CarouselImageService {
     @Autowired
     private CarouselImageMapper mapper;
 
-    @Value("${xcode.filesBaseUrl:test}")
-    private String filesBaseUrl;
 
     @Override
-    public List<CarouselImageVM> save(List<CarouselImageVM> vm) {
-        repository.deleteAll();
-        List<CarouselImage> carouselImages = mapper.toEntityList(vm);
-        List<CarouselImage> all = repository.saveAll(carouselImages);
-        return generateLinkUrl(all);
+    public CarouselImageVM save(CarouselImageVM vm) {
+        CarouselImage carouselImages = mapper.toEntity(vm);
+        CarouselImage save = repository.save(carouselImages);
+        return mapper.toVM(save);
     }
 
     @Override
     public List<CarouselImageVM> findAll() {
         List<CarouselImage> all = repository.findAll();
-        return generateLinkUrl(all);
+        return mapper.toVMList(all);
     }
 
-    private List<CarouselImageVM> generateLinkUrl(List<CarouselImage> list) {
-        return list.stream().map(item -> {
-            CarouselImageVM carouselImageVM = mapper.toVM(item);
-            carouselImageVM.setLinkUrl(filesBaseUrl + "/" + item.getImageUuid());
-            return carouselImageVM;
-        }).collect(Collectors.toList());
-    }
 }

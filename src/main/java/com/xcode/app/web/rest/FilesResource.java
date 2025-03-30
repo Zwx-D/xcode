@@ -1,12 +1,22 @@
 package com.xcode.app.web.rest;
 
+import com.xcode.app.service.FileInfoQueryService;
 import com.xcode.app.service.FilesSerivce;
+import com.xcode.app.service.FolderInfoQueryService;
+import com.xcode.app.util.HeaderUtils;
+import com.xcode.app.web.rest.api.FilesApi;
+import com.xcode.app.web.rest.filter.FilesCriteria;
+import com.xcode.app.web.rest.filter.FolderCriteria;
+import com.xcode.app.web.rest.vm.FileInfoVM;
 import com.xcode.app.web.rest.vm.FilesVM;
+import com.xcode.app.web.rest.vm.FolderVM;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,30 +29,47 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 @Slf4j
 @RestController
 @RequestMapping("/api/files")
-public class FilesContoller {
-
-    private static final String UPLOAD_DIR = "uploads";
-
-    @Value("${upload.root.directory}")
-    private String uploadRootDir;
+public class FilesResource implements FilesApi {
 
     @Autowired
     private FilesSerivce filesSerivce;
 
-    @PostMapping("/upload")
+    @Autowired
+    private FileInfoQueryService fileInfoQueryService;
+
+    @Autowired
+    private FolderInfoQueryService folderInfoQueryService;
+
+    @Override
     public ResponseEntity<FilesVM> uploadImage(@RequestParam("file") MultipartFile file) {
         FilesVM filesVM = filesSerivce.uploadImage(file);
         return ResponseEntity.ok(filesVM);
     }
 
-
-    @GetMapping("/download/{uuid}")
+    @Override
     public ResponseEntity<Resource> downloadImage(@PathVariable String uuid, @RequestParam("isDownload") Boolean isDownload) {
         return filesSerivce.downloadImage(uuid, isDownload);
+    }
+
+    @Override
+    public ResponseEntity<List<FileInfoVM>> findFileInfoByCriteria(FilesCriteria criteria, Pageable pageable) {
+        Page<FileInfoVM> byCriteria = fileInfoQueryService.findByCriteria(criteria, pageable);
+        return ResponseEntity.ok()
+            .headers(HeaderUtils.createHeadersWithTotalCount(byCriteria))
+            .body(byCriteria.getContent());
+    }
+
+    @Override
+    public ResponseEntity<List<FolderVM>> findFolderByCriteria(FolderCriteria criteria, Pageable pageable) {
+        Page<FolderVM> byCriteria = folderInfoQueryService.findByCriteria(criteria, pageable);
+        return ResponseEntity.ok()
+            .headers(HeaderUtils.createHeadersWithTotalCount(byCriteria))
+            .body(byCriteria.getContent());
     }
 
 //    @PostMapping("/img/compress")

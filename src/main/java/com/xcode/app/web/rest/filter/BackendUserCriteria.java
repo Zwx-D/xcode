@@ -7,7 +7,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class BackendUserFilter implements Serializable {
+public class BackendUserCriteria implements Serializable {
 
     private StringFilter username;
     private StringFilter realName;

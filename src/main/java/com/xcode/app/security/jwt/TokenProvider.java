@@ -8,6 +8,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,19 +24,25 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Component
 public class TokenProvider {
 
     private static final String AUTHORITIES_KEY = "auth";
     private final Key key;
     private final long tokenValidityInMilliseconds;
-    private final BackendUserRepository backendUserRepository;
 
-    public TokenProvider(SystemConfig systemConfig, BackendUserRepository backendUserRepository) {
-        this.backendUserRepository = backendUserRepository;
-        byte[] keyBytes = Decoders.BASE64.decode(systemConfig.getJwt().getSecret());
+    @Autowired
+    private BackendUserRepository backendUserRepository;
+
+    private final SystemConfig systemConfig;
+
+    public TokenProvider(SystemConfig systemConfig) {
+        this.systemConfig = systemConfig;
+        log.info("全局配置：{}", this.systemConfig);
+        byte[] keyBytes = Decoders.BASE64.decode(this.systemConfig.getJwt().getSecret());
         this.key = Keys.hmacShaKeyFor(keyBytes);
-        this.tokenValidityInMilliseconds = systemConfig.getJwt().getExpirationMs();
+        this.tokenValidityInMilliseconds = this.systemConfig.getJwt().getExpirationMs();
     }
 
     public String createToken(Authentication authentication) {
@@ -48,7 +56,7 @@ public class TokenProvider {
             .orElseThrow(() -> new UsernameNotFoundException("不存在当前用户: " + authentication.getName()));
         return Jwts.builder()
             .setSubject(authentication.getName())
-            .claim("realName",backendUser.getRealName())
+            .claim("realName", backendUser.getRealName())
             .claim(AUTHORITIES_KEY, authorities)
             .signWith(key, SignatureAlgorithm.HS512)
             .setExpiration(validity)
@@ -56,8 +64,9 @@ public class TokenProvider {
     }
 
     public Authentication getAuthentication(String token) {
-        Claims claims = Jwts.parser()
+        Claims claims = Jwts.parserBuilder()
             .setSigningKey(key)
+            .build()
             .parseClaimsJws(token)
             .getBody();
 
@@ -73,7 +82,10 @@ public class TokenProvider {
 
     public boolean validateToken(String authToken) {
         try {
-            Jwts.parser().setSigningKey(key).parseClaimsJws(authToken);
+            Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(authToken);
             return true;
         } catch (Exception e) {
             return false;

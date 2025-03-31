@@ -1,6 +1,6 @@
 package com.xcode.app.repository;
 
-import com.xcode.app.domain.FileInfo;
+import com.xcode.app.domain.Photography;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface FileInfoRepository extends JpaRepository<FileInfo, Long>, JpaSpecificationExecutor<FileInfo> {
+public interface PhotographyRepository extends JpaRepository<Photography, Long>, JpaSpecificationExecutor<Photography> {
 
-    Optional<FileInfo> findOneByUuid(String uuid);
+    Optional<Photography> findOneByUuid(String uuid);
 
 }

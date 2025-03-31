@@ -7,14 +7,18 @@ import lombok.EqualsAndHashCode;
 import java.io.Serializable;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
-public class CarouselImageVM extends BaseEntity implements Serializable {
+@EqualsAndHashCode(callSuper = false)
+public class PhotographyVM  extends BaseEntity implements Serializable {
 
     private Long id;
+
     private String imageUuid;
-    private String linkUrl;
+
+    private String desc;
+
     private Integer sortOrder;
-    private Boolean isShow;
+
+    private Boolean isShow = true;
 
     public Long getId() {
         return id;
@@ -32,12 +36,12 @@ public class CarouselImageVM extends BaseEntity implements Serializable {
         this.imageUuid = imageUuid;
     }
 
-    public String getLinkUrl() {
-        return linkUrl;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setLinkUrl(String linkUrl) {
-        this.linkUrl = linkUrl;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public Integer getSortOrder() {

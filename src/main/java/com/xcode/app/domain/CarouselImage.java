@@ -28,6 +28,9 @@ public class CarouselImage extends BaseEntity implements Serializable {
     @Column(nullable = false)
     private Integer sortOrder;
 
+    @Column
+    private Boolean isShow = false;
+
     public Long getId() {
         return id;
     }
@@ -50,5 +53,13 @@ public class CarouselImage extends BaseEntity implements Serializable {
 
     public void setSortOrder(Integer sortOrder) {
         this.sortOrder = sortOrder;
+    }
+
+    public Boolean getShow() {
+        return isShow;
+    }
+
+    public void setShow(Boolean show) {
+        isShow = show;
     }
 }

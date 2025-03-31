@@ -1,7 +1,7 @@
 package com.xcode.app.web.rest.api;
 
-import com.xcode.app.web.rest.filter.CarouselImageCriteria;
-import com.xcode.app.web.rest.vm.CarouselImageVM;
+import com.xcode.app.web.rest.filter.PhotographyCriteria;
+import com.xcode.app.web.rest.vm.PhotographyVM;
 import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -10,19 +10,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-public interface CarouselImageApi {
+public interface PhotographyApi {
 
-    @PostMapping("/carouselImage")
-    ResponseEntity<CarouselImageVM> save(@RequestBody CarouselImageVM vm);
+    @PostMapping("/photography")
+    ResponseEntity<PhotographyVM> save(@RequestBody PhotographyVM vm);
 
-    @GetMapping("/carouselImage")
-    ResponseEntity<List<CarouselImageVM>> findByCriteria(@SpringQueryMap CarouselImageCriteria criteria,
+    @GetMapping("/photography")
+    ResponseEntity<List<PhotographyVM>> findByCriteria(@SpringQueryMap PhotographyCriteria criteria,
                                                          @PageableDefault(page = 0, size = 10) Pageable pageable);
 
-    @DeleteMapping("carouselImage/{uuid}")
+    @DeleteMapping("photography/{uuid}")
     ResponseEntity<Void> delete(@PathVariable String uuid);
 
-    @PutMapping("carouselImage/{uuid}")
+    @PutMapping("photography/{uuid}")
     ResponseEntity<Void> updateIsShow(@PathVariable String uuid, @RequestParam Boolean isShow);
 
 }

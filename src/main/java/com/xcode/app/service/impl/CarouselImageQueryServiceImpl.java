@@ -4,7 +4,6 @@ import com.xcode.app.domain.CarouselImage;
 import com.xcode.app.domain.CarouselImage_;
 import com.xcode.app.repository.CarouselImageRepository;
 import com.xcode.app.service.CarouselImageQueryService;
-import com.xcode.app.service.CarouselImageService;
 import com.xcode.app.service.mapper.CarouselImageMapper;
 import com.xcode.app.web.rest.filter.CarouselImageCriteria;
 import com.xcode.app.web.rest.vm.CarouselImageVM;
@@ -23,9 +22,6 @@ public class CarouselImageQueryServiceImpl extends QueryService<CarouselImage> i
 
     @Autowired
     private CarouselImageRepository repository;
-
-    @Autowired
-    private CarouselImageService service;
 
     @Override
     public Page<CarouselImageVM> findByCriteria(CarouselImageCriteria criteria, Pageable pageable) {

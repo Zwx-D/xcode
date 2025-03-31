@@ -38,4 +38,27 @@ public class CarouselImageServiceImpl implements CarouselImageService {
         return mapper.toVMList(all);
     }
 
+    @Override
+    public void delete(String uuid) {
+        Optional<CarouselImage> oneByUuid = repository.findOneByUuid(uuid);
+        if (oneByUuid.isPresent()) {
+            CarouselImage carouselImage = oneByUuid.get();
+            repository.delete(carouselImage);
+        } else {
+            throw new RuntimeException("没有当前轮播图");
+        }
+    }
+
+    @Override
+    public void updateIsShow(String uuid, Boolean isShow) {
+        Optional<CarouselImage> oneByUuid = repository.findOneByUuid(uuid);
+        if (oneByUuid.isPresent()) {
+            CarouselImage carouselImage = oneByUuid.get();
+            carouselImage.setIsShow(isShow);
+            repository.save(carouselImage);
+        } else {
+            throw new RuntimeException("没有当前轮播图");
+        }
+    }
+
 }

@@ -11,4 +11,7 @@ public interface CarouselImageService {
 
     List<CarouselImageVM> findAll();
 
+    void delete(String uuid);
+
+    void updateIsShow(String uuid, Boolean isShow);
 }

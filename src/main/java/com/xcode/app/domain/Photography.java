@@ -1,20 +1,33 @@
-package com.xcode.app.web.rest.vm;
+package com.xcode.app.domain;
 
-import com.xcode.app.domain.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
-public class CarouselImageVM extends BaseEntity implements Serializable {
+@Entity
+@Table(name = "photography")
+@EqualsAndHashCode(callSuper = false)
+public class Photography extends BaseEntity implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column
     private String imageUuid;
-    private String linkUrl;
+
+    @Lob
+    @Column(name = "description")
+    private String desc;
+
+    @Column
     private Integer sortOrder;
-    private Boolean isShow;
+
+    @Column
+    private Boolean isShow = false;
 
     public Long getId() {
         return id;
@@ -32,12 +45,12 @@ public class CarouselImageVM extends BaseEntity implements Serializable {
         this.imageUuid = imageUuid;
     }
 
-    public String getLinkUrl() {
-        return linkUrl;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setLinkUrl(String linkUrl) {
-        this.linkUrl = linkUrl;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public Integer getSortOrder() {

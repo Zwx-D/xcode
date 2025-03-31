@@ -19,10 +19,10 @@ public interface PhotographyApi {
     ResponseEntity<List<PhotographyVM>> findByCriteria(@SpringQueryMap PhotographyCriteria criteria,
                                                          @PageableDefault(page = 0, size = 10) Pageable pageable);
 
-    @DeleteMapping("photography/{uuid}")
+    @DeleteMapping("/photography/{uuid}")
     ResponseEntity<Void> delete(@PathVariable String uuid);
 
-    @PutMapping("photography/{uuid}")
+    @PutMapping("/photography/{uuid}")
     ResponseEntity<Void> updateIsShow(@PathVariable String uuid, @RequestParam Boolean isShow);
 
 }

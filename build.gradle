@@ -290,6 +290,11 @@ dependencies {
     // https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-openfeign
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
 
+    implementation "com.github.binarywang:weixin-java-miniapp:4.3.0"
+    implementation "com.github.binarywang:weixin-java-pay:3.9.0"
+    implementation "com.github.binarywang:weixin-java-mp:4.2.0"
+    implementation "com.github.binarywang:weixin-java-cp:4.4.0"
+
 }
 
 if (project.hasProperty("gae")) {

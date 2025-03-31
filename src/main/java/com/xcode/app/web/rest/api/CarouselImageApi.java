@@ -19,10 +19,10 @@ public interface CarouselImageApi {
     ResponseEntity<List<CarouselImageVM>> findByCriteria(@SpringQueryMap CarouselImageCriteria criteria,
                                                          @PageableDefault(page = 0, size = 10) Pageable pageable);
 
-    @DeleteMapping("carouselImage/{uuid}")
+    @DeleteMapping("/carouselImage/{uuid}")
     ResponseEntity<Void> delete(@PathVariable String uuid);
 
-    @PutMapping("carouselImage/{uuid}")
+    @PutMapping("/carouselImage/{uuid}")
     ResponseEntity<Void> updateIsShow(@PathVariable String uuid, @RequestParam Boolean isShow);
 
 }

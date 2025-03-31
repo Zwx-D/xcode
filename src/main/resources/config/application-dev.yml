@@ -1,9 +1,11 @@
 
 logging:
   level:
-    ROOT: DEBUG
-    io.github.jhipster: DEBUG
+    ROOT: Trace
+    io.github.jhipster: Trace
+    javax.management.modelmbean: Trace
     com.xcode.app: DEBUG
+
 
 spring:
   profiles:
@@ -115,7 +117,11 @@ system:
     password: '8888888'
     role-name: 'ROLE_SUPER_ADMIN'
     role-description: '系统超级管理员'
-
+  wechat:
+    miniConfig:
+      - apiHost: 'https://api.weixin.qq.com'
+        appid: 'wx5fc9c4e6fc51ab3e'
+        secreat: 'b49ea1ba9432b276cde4ef9325b32274'
 deepseek:
   baseUrl: 'https://api.deepseek.com'
   appKey: 'sk-cbdabb7b92c3444fadda70beff044514'

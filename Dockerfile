@@ -4,14 +4,22 @@ FROM openjdk:11-jdk-slim
 # 设置工作目录
 WORKDIR /app
 
-# 复制项目 JAR 包到容器
-COPY target/xcode.jar /app/xcode.jar
+# 复制 JAR 包（确保 Gradle 构建时 `bootJar` 生成了 `app.jar`）
+COPY build/libs/app.jar /app/app.jar
 
-# 复制默认配置（在宿主机会被挂载覆盖）
-COPY config /app/config
+# 设置配置文件路径（让 Spring Boot 读取外部 `application.yml`）
+VOLUME ["/config"]
+ENV SPRING_CONFIG_LOCATION=/config/application.yml
+
+
+# 创建上传文件存储目录（用于持久化）
+RUN mkdir -p /app/file/upload
+
+# 挂载上传文件目录
+VOLUME ["/app/file/upload"]
 
 # 暴露 8080 端口
 EXPOSE 8080
 
 # 运行 Spring Boot 应用，并指定配置文件路径
-ENTRYPOINT ["java", "-jar", "/app/xcode.jar", "--spring.config.location=/app/config/application.properties"]
+CMD ["java", "-jar", "/app/app.jar"]

@@ -319,3 +319,8 @@ wrapper {
 
 compileJava.dependsOn processResources
 processResources.dependsOn bootBuildInfo
+
+// 让 Gradle 生成 JAR 文件
+bootJar {
+    archiveFileName = "app.jar"
+}

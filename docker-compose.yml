@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  xcode:
+    build: .
+    container_name: xcode_container
+    ports:
+      - "8080:8080"
+    volumes:
+      - /opt/backend/xcode/config:/app/config
+      - /opt/backend/xcode/files:/app/file/upload
+    restart: unless-stopped

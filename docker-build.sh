@@ -18,27 +18,6 @@ echo "============================="
 echo "🛠 检查 & 安装 JDK11..."
 echo "============================="
 
-# 检查 Java 是否安装
-if ! java -version &>/dev/null; then
-  echo "🔧 JDK11 未安装，正在安装..."
-  sudo apt update
-  sudo apt install -y openjdk-11-jdk
-fi
-
-echo "============================="
-echo "🛠 检查 & 安装 Gradle 6.9.1..."
-echo "============================="
-
-# 检查 Gradle 是否安装
-if ! gradle -v &>/dev/null; then
-  echo "🔧 Gradle 未安装，正在安装..."
-  wget https://services.gradle.org/distributions/gradle-6.9.1-bin.zip
-  sudo mkdir /opt/gradle
-  sudo unzip -d /opt/gradle gradle-6.9.1-bin.zip
-  echo "export PATH=/opt/gradle/gradle-6.9.1/bin:\$PATH" | sudo tee -a /etc/profile
-  source /etc/profile
-fi
-
 echo "============================="
 echo "🚀 开始构建 Spring Boot 项目..."
 echo "============================="

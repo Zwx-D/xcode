@@ -33,9 +33,8 @@ public class CarouselImageServiceImpl implements CarouselImageService {
     }
 
     @Override
-    public List<CarouselImageVM> findAll() {
-        List<CarouselImage> all = repository.findAll();
-        return mapper.toVMList(all);
+    public List<CarouselImageVM> findAllByIsShow(Boolean isShow) {
+        return mapper.toVMList(repository.findAllByIsShow(isShow));
     }
 
     @Override

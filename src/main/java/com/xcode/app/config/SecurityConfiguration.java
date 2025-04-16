@@ -82,7 +82,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //            .antMatchers("/api/test/**").permitAll()
 //            .antMatchers("/api/pdf/**").permitAll()
             .antMatchers("/api/files/**").permitAll()
-            .antMatchers("/api/wechat/public/**").permitAll()
+            .antMatchers("/api/weChat/public/**").permitAll()
             .antMatchers("/api/backendUser/login").permitAll()
             .antMatchers("/api/**").authenticated()
             .antMatchers("/management/health").permitAll()

@@ -32,7 +32,7 @@ public class WechatResource implements WechatApi {
     }
 
     @Override
-    public ResponseEntity<WxMaPhoneNumberInfo> getuserphoneummber(String appId, String code) throws WxErrorException {
+    public ResponseEntity<WxMaPhoneNumberInfo> getUserPhoneNumber(String appId, String code) throws WxErrorException {
         return ResponseEntity.ok(wechatService.getuserphoneummber(appId, code));
     }
 

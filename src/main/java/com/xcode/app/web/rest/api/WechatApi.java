@@ -16,7 +16,7 @@ public interface WechatApi {
     ResponseEntity<WxMaJscode2SessionResult> code2Session(@PathVariable("appId") String appId, @PathVariable("code") String code);
 
     @GetMapping("/weChat/public/getUserPhoneNumber/{appId}/{code}")
-    ResponseEntity<WxMaPhoneNumberInfo> getuserphoneummber(@PathVariable("appId") String appId, @PathVariable("code") String code) throws WxErrorException;
+    ResponseEntity<WxMaPhoneNumberInfo> getUserPhoneNumber(@PathVariable("appId") String appId, @PathVariable("code") String code) throws WxErrorException;
 
     @GetMapping("/weChat/public/findAllCarouselImages")
     ResponseEntity<List<CarouselImageVM>> findAllCarouselImages();

@@ -78,7 +78,7 @@ public class FilesServiceImpl implements FilesSerivce {
         FileInfo fileInfo = new FileInfo();
         fileInfo.setName(fileName);
         fileInfo.setFolder(folderInfo);
-        fileInfo.setFilePath(directoryPath + "\\" + fileName);
+        fileInfo.setFilePath(Paths.get(directoryPath, fileName).toString());
         log.info("文件:{}", fileInfo);
         FileInfo save = fileInfoRepository.save(fileInfo);
         return save;

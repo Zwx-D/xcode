@@ -4,6 +4,7 @@ import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
 import com.xcode.app.web.rest.vm.CarouselImageVM;
 import com.xcode.app.web.rest.vm.PhotographyVM;
+import com.xcode.app.web.rest.vm.WxHomeFunctionVM;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,5 +25,8 @@ public interface WechatApi {
 
     @GetMapping("/weChat/public/findAllPhotography")
     ResponseEntity<List<PhotographyVM>> findAllPhotography();
+
+    @GetMapping("/weChat/public/findAllWxHomeFunction")
+    ResponseEntity<List<WxHomeFunctionVM>> findAllWxHomeFunction();
 
 }

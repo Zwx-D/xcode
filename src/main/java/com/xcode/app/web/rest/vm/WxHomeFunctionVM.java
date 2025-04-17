@@ -8,9 +8,13 @@ import java.io.Serializable;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class PhotographyVM extends BaseEntity implements Serializable {
+public class WxHomeFunctionVM extends BaseEntity implements Serializable {
 
     private Long id;
+
+    private String name;
+
+    private String route;
 
     private String imageUuid;
 
@@ -20,12 +24,29 @@ public class PhotographyVM extends BaseEntity implements Serializable {
 
     private Boolean isShow;
 
+
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getRoute() {
+        return route;
+    }
+
+    public void setRoute(String route) {
+        this.route = route;
     }
 
     public String getImageUuid() {

@@ -5,9 +5,11 @@ import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
 import com.xcode.app.service.CarouselImageService;
 import com.xcode.app.service.PhotographyService;
 import com.xcode.app.service.WechatService;
+import com.xcode.app.service.WxHomeFunctionService;
 import com.xcode.app.web.rest.api.WechatApi;
 import com.xcode.app.web.rest.vm.CarouselImageVM;
 import com.xcode.app.web.rest.vm.PhotographyVM;
+import com.xcode.app.web.rest.vm.WxHomeFunctionVM;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class WechatResource implements WechatApi {
     @Autowired
     private PhotographyService photographyService;
 
+    @Autowired
+    private WxHomeFunctionService wxHomeFunctionService;
+
     @Override
     public ResponseEntity<WxMaJscode2SessionResult> code2Session(String appId, String code) {
         return ResponseEntity.ok(wechatService.code2Session(appId, code));
@@ -49,5 +54,10 @@ public class WechatResource implements WechatApi {
     @Override
     public ResponseEntity<List<PhotographyVM>> findAllPhotography() {
         return ResponseEntity.ok(photographyService.findAllByIsShow(true));
+    }
+
+    @Override
+    public ResponseEntity<List<WxHomeFunctionVM>> findAllWxHomeFunction() {
+        return ResponseEntity.ok(wxHomeFunctionService.findAllByIsShow(true));
     }
 }

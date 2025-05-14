@@ -324,3 +324,7 @@ processResources.dependsOn bootBuildInfo
 bootJar {
     archiveFileName = "app.jar"
 }
+
+tasks.withType(JavaCompile) {
+    options.annotationProcessorPath = configurations.compileClasspath + configurations.annotationProcessor
+}

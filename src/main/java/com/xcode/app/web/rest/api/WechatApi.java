@@ -4,11 +4,11 @@ import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
 import com.xcode.app.web.rest.vm.CarouselImageVM;
 import com.xcode.app.web.rest.vm.PhotographyVM;
+import com.xcode.app.web.rest.vm.WechatUserVM;
 import com.xcode.app.web.rest.vm.WxHomeFunctionVM;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +28,11 @@ public interface WechatApi {
 
     @GetMapping("/weChat/public/findAllWxHomeFunction")
     ResponseEntity<List<WxHomeFunctionVM>> findAllWxHomeFunction();
+
+    @PostMapping("/wechatUser")
+    ResponseEntity<WechatUserVM> save(@RequestBody WechatUserVM vm);
+
+    @GetMapping("/wechatUser/{unionId}")
+    ResponseEntity<WechatUserVM> findOneByUnionId(@PathVariable String unionId);
 
 }

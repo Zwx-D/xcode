@@ -1,8 +1,5 @@
 package com.xcode.app.service.mapper;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
-
 import java.util.List;
 
 public interface BaseMapper<E, V> {

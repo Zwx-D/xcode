@@ -2,13 +2,11 @@ package com.xcode.app.web.rest;
 
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
-import com.xcode.app.service.CarouselImageService;
-import com.xcode.app.service.PhotographyService;
-import com.xcode.app.service.WechatService;
-import com.xcode.app.service.WxHomeFunctionService;
+import com.xcode.app.service.*;
 import com.xcode.app.web.rest.api.WechatApi;
 import com.xcode.app.web.rest.vm.CarouselImageVM;
 import com.xcode.app.web.rest.vm.PhotographyVM;
+import com.xcode.app.web.rest.vm.WechatUserVM;
 import com.xcode.app.web.rest.vm.WxHomeFunctionVM;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -36,6 +34,9 @@ public class WechatResource implements WechatApi {
     @Autowired
     private WxHomeFunctionService wxHomeFunctionService;
 
+    @Autowired
+    private WechatUserService wechatUserService;
+
     @Override
     public ResponseEntity<WxMaJscode2SessionResult> code2Session(String appId, String code) {
         return ResponseEntity.ok(wechatService.code2Session(appId, code));
@@ -59,5 +60,15 @@ public class WechatResource implements WechatApi {
     @Override
     public ResponseEntity<List<WxHomeFunctionVM>> findAllWxHomeFunction() {
         return ResponseEntity.ok(wxHomeFunctionService.findAllByIsShow(true));
+    }
+
+    @Override
+    public ResponseEntity<WechatUserVM> save(WechatUserVM vm) {
+        return ResponseEntity.ok(wechatUserService.save(vm));
+    }
+
+    @Override
+    public ResponseEntity<WechatUserVM> findOneByUnionId(String unionId) {
+        return ResponseEntity.ok(wechatUserService.findOneByUnionId(unionId));
     }
 }

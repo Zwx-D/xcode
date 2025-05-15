@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,5 +39,6 @@ public class Portfolio extends BaseEntity implements Serializable {
     private String imageUuid;
 
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PortfolioItem> portfolioItemList;
+    private List<PortfolioItem> portfolioItemList = new ArrayList<>();
+
 }

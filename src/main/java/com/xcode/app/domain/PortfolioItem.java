@@ -2,6 +2,7 @@ package com.xcode.app.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -36,8 +37,9 @@ public class PortfolioItem extends BaseEntity implements Serializable {
     @Column
     private String imageUuid;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Pportfolio_id", nullable = false)
+    @JoinColumn(name = "portfolio_id", nullable = false)
     private Portfolio portfolio;
 
 }

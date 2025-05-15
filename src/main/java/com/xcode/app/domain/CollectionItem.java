@@ -2,6 +2,7 @@ package com.xcode.app.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -30,6 +31,7 @@ public class CollectionItem  extends BaseEntity implements Serializable {
     @Column
     private String imageUuid;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "collection_folder_id", nullable = false)
     private CollectionFolder collectionFolder;

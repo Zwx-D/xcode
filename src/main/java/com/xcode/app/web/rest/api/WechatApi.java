@@ -2,11 +2,13 @@ package com.xcode.app.web.rest.api;
 
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
-import com.xcode.app.web.rest.vm.CarouselImageVM;
-import com.xcode.app.web.rest.vm.PhotographyVM;
-import com.xcode.app.web.rest.vm.WechatUserVM;
-import com.xcode.app.web.rest.vm.WxHomeFunctionVM;
+import com.xcode.app.web.rest.filter.PortfolioCriteria;
+import com.xcode.app.web.rest.filter.PortfolioItemCriteria;
+import com.xcode.app.web.rest.vm.*;
 import me.chanjar.weixin.common.error.WxErrorException;
+import org.springframework.cloud.openfeign.SpringQueryMap;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,5 +36,22 @@ public interface WechatApi {
 
     @GetMapping("/wechatUser/{unionId}")
     ResponseEntity<WechatUserVM> findOneByUnionId(@PathVariable String unionId);
+
+    @GetMapping("/weChat/public/photographer")
+    ResponseEntity<PhotographerVM> getPhotographer();
+
+    @GetMapping("/weChat/public/portfolio")
+    ResponseEntity<List<PortfolioVM>> findByCriteria(@RequestParam String name,
+                                                     @RequestParam Integer page,
+                                                     @RequestParam Integer size,
+                                                     @RequestParam String sortName,
+                                                     @RequestParam String sort);
+
+    @GetMapping("/weChat/public/portfolioItem")
+    ResponseEntity<List<PortfolioItemVM>> findPortfolioItemByCriteria(@RequestParam String uuid,
+                                                                      @RequestParam Integer page,
+                                                                      @RequestParam Integer size,
+                                                                      @RequestParam String sortName,
+                                                                      @RequestParam String sort);
 
 }

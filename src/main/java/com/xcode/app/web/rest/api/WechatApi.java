@@ -41,17 +41,17 @@ public interface WechatApi {
     ResponseEntity<PhotographerVM> getPhotographer();
 
     @GetMapping("/weChat/public/portfolio")
-    ResponseEntity<List<PortfolioVM>> findByCriteria(@RequestParam String name,
-                                                     @RequestParam Integer page,
-                                                     @RequestParam Integer size,
-                                                     @RequestParam String sortName,
-                                                     @RequestParam String sort);
+    ResponseEntity<List<PortfolioVM>> findByCriteria(@RequestParam(required = false) String name,
+                                                     @RequestParam(required = false) Integer page,
+                                                     @RequestParam(required = false) Integer size,
+                                                     @RequestParam(required = false) String sortName,
+                                                     @RequestParam(required = false) String sort);
 
     @GetMapping("/weChat/public/portfolioItem")
     ResponseEntity<List<PortfolioItemVM>> findPortfolioItemByCriteria(@RequestParam String uuid,
-                                                                      @RequestParam Integer page,
-                                                                      @RequestParam Integer size,
-                                                                      @RequestParam String sortName,
-                                                                      @RequestParam String sort);
+                                                                      @RequestParam(required = false) Integer page,
+                                                                      @RequestParam(required = false) Integer size,
+                                                                      @RequestParam(required = false) String sortName,
+                                                                      @RequestParam(required = false) String sort);
 
 }

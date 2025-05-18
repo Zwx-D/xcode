@@ -28,7 +28,7 @@ public class WechatUser extends BaseEntity implements Serializable {
     @Column
     private String openId;
 
-    @Column(unique = true)
+    @Column
     private String unionId;
 
     @Column

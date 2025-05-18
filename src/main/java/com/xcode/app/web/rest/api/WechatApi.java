@@ -31,7 +31,7 @@ public interface WechatApi {
     @GetMapping("/weChat/public/findAllWxHomeFunction")
     ResponseEntity<List<WxHomeFunctionVM>> findAllWxHomeFunction();
 
-    @PostMapping("/wechatUser")
+    @PostMapping("/weChat/public/wechatUser")
     ResponseEntity<WechatUserVM> save(@RequestBody WechatUserVM vm);
 
     @GetMapping("/wechatUser/{unionId}")

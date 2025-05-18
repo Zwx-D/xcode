@@ -2,6 +2,7 @@ package com.xcode.app.web.rest;
 
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
+import com.xcode.app.security.jwt.TokenProvider;
 import com.xcode.app.service.*;
 import com.xcode.app.util.HeaderUtils;
 import com.xcode.app.web.rest.api.WechatApi;
@@ -51,6 +52,9 @@ public class WechatResource implements WechatApi {
 
     @Autowired
     private PortfolioItemQueryService portfolioItemQueryService;
+
+    @Autowired
+    private TokenProvider tokenProvider;
 
     @Override
     public ResponseEntity<WxMaJscode2SessionResult> code2Session(String appId, String code) {

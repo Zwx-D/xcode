@@ -91,4 +91,16 @@ public class TokenProvider {
             return false;
         }
     }
+
+    public String createWechatToken(String nickName) {
+        long now = (new Date()).getTime();
+        Date validity = new Date(now + this.tokenValidityInMilliseconds);
+        return Jwts.builder()
+            .setSubject(nickName)
+            .claim("realName", nickName)
+            .claim(AUTHORITIES_KEY, "ROLE_WECHAT")
+            .signWith(key, SignatureAlgorithm.HS512)
+            .setExpiration(validity)
+            .compact();
+    }
 }

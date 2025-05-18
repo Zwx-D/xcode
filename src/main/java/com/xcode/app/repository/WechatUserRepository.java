@@ -14,4 +14,6 @@ public interface WechatUserRepository extends JpaRepository<WechatUser, Long>, J
 
     Optional<WechatUser> findOneById(Long id);
 
+    Optional<WechatUser> findOneByOpenId(String openId);
+
 }

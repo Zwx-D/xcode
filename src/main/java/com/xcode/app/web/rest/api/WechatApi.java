@@ -2,6 +2,8 @@ package com.xcode.app.web.rest.api;
 
 import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import cn.binarywang.wx.miniapp.bean.WxMaPhoneNumberInfo;
+import com.xcode.app.web.rest.dto.CreateCollectionFolderDTO;
+import com.xcode.app.web.rest.dto.UpdateCollectionItemDTO;
 import com.xcode.app.web.rest.filter.PortfolioCriteria;
 import com.xcode.app.web.rest.filter.PortfolioItemCriteria;
 import com.xcode.app.web.rest.vm.*;
@@ -36,6 +38,24 @@ public interface WechatApi {
 
     @GetMapping("/wechatUser/{unionId}")
     ResponseEntity<WechatUserVM> findOneByUnionId(@PathVariable String unionId);
+
+    @GetMapping("/weChat/public/wechatUser/collection/{wechatUserId}")
+    ResponseEntity<List<CollectionFolderVM>> findCollectionByWechatUserId(@PathVariable Long wechatUserId);
+
+    @PostMapping("/weChat/public/wechatUser/collection")
+    ResponseEntity<CollectionFolderVM> createCollection(@RequestBody CreateCollectionFolderDTO dto);
+
+    @PutMapping("/weChat/public/wechatUser/collection")
+    ResponseEntity<CollectionFolderVM> updateCollection(@RequestBody CollectionFolderVM vm);
+
+    @DeleteMapping("/weChat/public/wechatUser/collection/{uuid}")
+    ResponseEntity<Void> deleteCollection(@PathVariable String uuid);
+
+    @PostMapping("/weChat/public/wechatUser/collectionItem")
+    ResponseEntity<Void> addItemInFolder(@RequestBody UpdateCollectionItemDTO dto);
+
+    @DeleteMapping("/weChat/public/wechatUser/collectionItem")
+    ResponseEntity<Void> delItemInFolder(@RequestBody UpdateCollectionItemDTO dto);
 
     @GetMapping("/weChat/public/photographer")
     ResponseEntity<PhotographerVM> getPhotographer();

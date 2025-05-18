@@ -6,6 +6,8 @@ import com.xcode.app.security.jwt.TokenProvider;
 import com.xcode.app.service.*;
 import com.xcode.app.util.HeaderUtils;
 import com.xcode.app.web.rest.api.WechatApi;
+import com.xcode.app.web.rest.dto.CreateCollectionFolderDTO;
+import com.xcode.app.web.rest.dto.UpdateCollectionItemDTO;
 import com.xcode.app.web.rest.filter.PortfolioCriteria;
 import com.xcode.app.web.rest.filter.PortfolioItemCriteria;
 import com.xcode.app.web.rest.vm.*;
@@ -54,7 +56,7 @@ public class WechatResource implements WechatApi {
     private PortfolioItemQueryService portfolioItemQueryService;
 
     @Autowired
-    private TokenProvider tokenProvider;
+    private CollectionFolderService collectionFolderService;
 
     @Override
     public ResponseEntity<WxMaJscode2SessionResult> code2Session(String appId, String code) {
@@ -89,6 +91,39 @@ public class WechatResource implements WechatApi {
     @Override
     public ResponseEntity<WechatUserVM> findOneByUnionId(String unionId) {
         return ResponseEntity.ok(wechatUserService.findOneByUnionId(unionId));
+    }
+
+    @Override
+    public ResponseEntity<CollectionFolderVM> createCollection(CreateCollectionFolderDTO dto) {
+        return ResponseEntity.ok(collectionFolderService.save(dto));
+    }
+
+    @Override
+    public ResponseEntity<CollectionFolderVM> updateCollection(CollectionFolderVM vm) {
+        return ResponseEntity.ok(collectionFolderService.update(vm));
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteCollection(String uuid) {
+        collectionFolderService.delete(uuid);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<Void> addItemInFolder(UpdateCollectionItemDTO dto) {
+        collectionFolderService.addItemInFolder(dto);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<Void> delItemInFolder(UpdateCollectionItemDTO dto) {
+        collectionFolderService.delItemInFolder(dto);
+        return ResponseEntity.ok().build();
+    }
+
+    @Override
+    public ResponseEntity<List<CollectionFolderVM>> findCollectionByWechatUserId(Long wechatUserId) {
+        return ResponseEntity.ok(collectionFolderService.findByWechatUserId(wechatUserId));
     }
 
     @Override

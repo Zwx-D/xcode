@@ -26,6 +26,10 @@ public class WechatUserVM extends BaseEntity implements Serializable {
 
     private String os;
 
+    private String avatarUrl;
+
+    private String gender;
+
     private List<CollectionFolderVM> collectionFolders;
 
 }

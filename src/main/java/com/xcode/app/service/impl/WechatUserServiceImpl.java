@@ -32,6 +32,8 @@ public class WechatUserServiceImpl implements WechatUserService {
             WechatUser wechatUser = oneByOpenId.get();
             wechatUser.setNickName(vm.getNickName());
             wechatUser.setLastLoginTime(LocalDateTime.now());
+            wechatUser.setAvatarUrl(vm.getAvatarUrl());
+            wechatUser.setGender(vm.getGender());
             return mapper.toVM(repository.save(wechatUser));
         } else {
             vm.setLastLoginTime(LocalDateTime.now());

@@ -40,6 +40,12 @@ public class WechatUser extends BaseEntity implements Serializable {
     @Column
     private String os;
 
+    @Column
+    private String avatarUrl;
+
+    @Column
+    private String gender;
+
     @OneToMany(mappedBy = "wechatUser", cascade = CascadeType.ALL)
     private List<CollectionFolder> collectionFolders;
 

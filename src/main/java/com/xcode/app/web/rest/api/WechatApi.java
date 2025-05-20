@@ -42,6 +42,9 @@ public interface WechatApi {
     @GetMapping("/weChat/public/wechatUser/collection/{wechatUserId}")
     ResponseEntity<List<CollectionFolderVM>> findCollectionByWechatUserId(@PathVariable Long wechatUserId);
 
+    @GetMapping("/weChat/public/wechatUser/collection/getByUuid/{uuid}")
+    ResponseEntity<CollectionFolderVM> findCollectionByUuid(@PathVariable String uuid);
+
     @PostMapping("/weChat/public/wechatUser/collection")
     ResponseEntity<CollectionFolderVM> createCollection(@RequestBody CreateCollectionFolderDTO dto);
 

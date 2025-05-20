@@ -127,6 +127,11 @@ public class WechatResource implements WechatApi {
     }
 
     @Override
+    public ResponseEntity<CollectionFolderVM> findCollectionByUuid(String uuid) {
+        return ResponseEntity.ok(collectionFolderService.findOneByUuid(uuid));
+    }
+
+    @Override
     public ResponseEntity<PhotographerVM> getPhotographer() {
         return ResponseEntity.ok(photographerService.getPhotographer());
     }

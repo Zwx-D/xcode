@@ -116,8 +116,8 @@ public class WechatResource implements WechatApi {
     }
 
     @Override
-    public ResponseEntity<Void> delItemInFolder(UpdateCollectionItemDTO dto) {
-        collectionFolderService.delItemInFolder(dto);
+    public ResponseEntity<Void> delItemInFolder( String uuid) {
+        collectionFolderService.delItemInFolder(uuid);
         return ResponseEntity.ok().build();
     }
 

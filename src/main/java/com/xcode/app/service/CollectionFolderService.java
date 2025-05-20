@@ -20,6 +20,6 @@ public interface CollectionFolderService {
 
     void addItemInFolder(UpdateCollectionItemDTO dto);
 
-    void delItemInFolder(UpdateCollectionItemDTO dto);
+    void delItemInFolder(String uuid);
 
 }

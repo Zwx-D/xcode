@@ -57,8 +57,8 @@ public interface WechatApi {
     @PostMapping("/weChat/public/wechatUser/collectionItem")
     ResponseEntity<Void> addItemInFolder(@RequestBody UpdateCollectionItemDTO dto);
 
-    @DeleteMapping("/weChat/public/wechatUser/collectionItem")
-    ResponseEntity<Void> delItemInFolder(@RequestBody UpdateCollectionItemDTO dto);
+    @DeleteMapping("/weChat/public/wechatUser/collectionItem/{uuid}")
+    ResponseEntity<Void> delItemInFolder(@PathVariable String uuid);
 
     @GetMapping("/weChat/public/photographer")
     ResponseEntity<PhotographerVM> getPhotographer();

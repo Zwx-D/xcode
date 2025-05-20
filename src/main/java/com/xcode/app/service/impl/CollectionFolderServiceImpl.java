@@ -106,11 +106,8 @@ public class CollectionFolderServiceImpl implements CollectionFolderService {
     }
 
     @Override
-    public void delItemInFolder(UpdateCollectionItemDTO dto) {
-        CollectionFolder collectionFolder = repository.findOneByUuid(dto.getFolderUuid()).orElseThrow(() -> {
-            throw new RuntimeException("找不到对应收藏夹");
-        });
-        CollectionItem collectionItem = collectionItemRepository.findOneByUuid(dto.getItemUuid()).orElseThrow(() -> {
+    public void delItemInFolder(String uuid) {
+        CollectionItem collectionItem = collectionItemRepository.findOneByUuid(uuid).orElseThrow(() -> {
             throw new RuntimeException("找不到对应项");
         });
         collectionItemRepository.delete(collectionItem);

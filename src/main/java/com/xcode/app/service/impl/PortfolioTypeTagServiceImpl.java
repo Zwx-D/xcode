@@ -8,6 +8,8 @@ import com.xcode.app.web.rest.vm.PortfolioTypeTagVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PortfolioTypeTagServiceImpl implements PortfolioTypeTagService {
 
@@ -47,6 +49,11 @@ public class PortfolioTypeTagServiceImpl implements PortfolioTypeTagService {
             throw new RuntimeException("找不到对应详情");
         });
         repository.delete(portfolioTypeTag);
+    }
+
+    @Override
+    public List<PortfolioTypeTagVM> findAll() {
+        return mapper.toVMList(repository.findAll());
     }
 
 }

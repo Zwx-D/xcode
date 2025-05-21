@@ -52,6 +52,7 @@ public class PortfolioServiceImpl implements PortfolioService {
         data.setIsShow(vm.getIsShow());
         data.setImageUuid(vm.getImageUuid());
         data.setDesc(vm.getDesc());
+        data.setTypeTag(vm.getTypeTag());
         return mapper.toVM(repository.save(data));
     }
 

@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "Protfolio_type_tag")
+@Table(name = "protfolio_type_tag")
 @EqualsAndHashCode(callSuper = false)
 public class PortfolioTypeTag extends BaseEntity implements Serializable {
 

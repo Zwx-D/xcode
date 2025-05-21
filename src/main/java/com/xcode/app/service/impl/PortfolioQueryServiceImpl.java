@@ -42,6 +42,9 @@ public class PortfolioQueryServiceImpl extends QueryService<Portfolio> implement
             if (criteria.getName() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getName(), Portfolio_.name));
             }
+            if (criteria.getTypeTag() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getTypeTag(), Portfolio_.typeTag));
+            }
             if (criteria.getSortOrder() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getSortOrder(), Portfolio_.sortOrder));
             }
@@ -56,6 +59,9 @@ public class PortfolioQueryServiceImpl extends QueryService<Portfolio> implement
             }
             if (criteria.getCreatedTime() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getCreatedTime(), Portfolio_.createdTime));
+            }
+            if (criteria.getIsShow() != null) {
+                specification = specification.and(buildSpecification(criteria.getIsShow(), Portfolio_.isShow));
             }
             if (criteria.getLastModifiedTime() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getLastModifiedTime(), Portfolio_.lastModifiedTime));

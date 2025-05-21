@@ -66,6 +66,9 @@ public class PortfolioItemQueryServiceImpl extends QueryService<PortfolioItem> i
             if (criteria.getLastModifiedTime() != null) {
                 specification = specification.and(buildRangeSpecification(criteria.getLastModifiedTime(), PortfolioItem_.lastModifiedTime));
             }
+            if (criteria.getIsShow() != null) {
+                specification = specification.and(buildSpecification(criteria.getIsShow(), PortfolioItem_.isShow));
+            }
 
             if (criteria.getPortfolioUuid() != null) {
                 specification = specification.and(buildSpecification(criteria.getPortfolioUuid(), root -> getPath(root, "uuid")));

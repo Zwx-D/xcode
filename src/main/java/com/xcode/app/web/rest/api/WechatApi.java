@@ -63,10 +63,14 @@ public interface WechatApi {
     @GetMapping("/weChat/public/photographer")
     ResponseEntity<PhotographerVM> getPhotographer();
 
+    @GetMapping("/weChat/public/portfolioTypeTag")
+    ResponseEntity<List<String>> findAllortfolioTypeTag();
+
     @GetMapping("/weChat/public/portfolio")
     ResponseEntity<List<PortfolioVM>> findByCriteria(@RequestParam(required = false) String name,
                                                      @RequestParam(required = false) Integer page,
                                                      @RequestParam(required = false) Integer size,
+                                                     @RequestParam(required = false) String typeTag,
                                                      @RequestParam(required = false) String sortName,
                                                      @RequestParam(required = false) String sort);
 

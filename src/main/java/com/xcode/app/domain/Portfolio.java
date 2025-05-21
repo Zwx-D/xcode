@@ -38,6 +38,9 @@ public class Portfolio extends BaseEntity implements Serializable {
     @Column
     private String imageUuid;
 
+    @Column
+    private String typeTag;
+
     @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PortfolioItem> portfolioItemList = new ArrayList<>();
 

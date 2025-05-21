@@ -11,6 +11,7 @@ import com.xcode.app.web.rest.dto.UpdateCollectionItemDTO;
 import com.xcode.app.web.rest.filter.PortfolioCriteria;
 import com.xcode.app.web.rest.filter.PortfolioItemCriteria;
 import com.xcode.app.web.rest.vm.*;
+import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.StringFilter;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
@@ -57,6 +58,9 @@ public class WechatResource implements WechatApi {
 
     @Autowired
     private CollectionFolderService collectionFolderService;
+
+    @Autowired
+    private PortfolioService portfolioService;
 
     @Override
     public ResponseEntity<WxMaJscode2SessionResult> code2Session(String appId, String code) {
@@ -116,7 +120,7 @@ public class WechatResource implements WechatApi {
     }
 
     @Override
-    public ResponseEntity<Void> delItemInFolder( String uuid) {
+    public ResponseEntity<Void> delItemInFolder(String uuid) {
         collectionFolderService.delItemInFolder(uuid);
         return ResponseEntity.ok().build();
     }
@@ -137,13 +141,27 @@ public class WechatResource implements WechatApi {
     }
 
     @Override
-    public ResponseEntity<List<PortfolioVM>> findByCriteria(String name, Integer page, Integer size, String sortName, String sort) {
+    public ResponseEntity<List<String>> findAllortfolioTypeTag() {
+        return ResponseEntity.ok(portfolioService.findDistinctTypeTags());
+    }
+
+    @Override
+    public ResponseEntity<List<PortfolioVM>> findByCriteria(String name, Integer page, Integer size, String typeTag, String sortName, String sort) {
         PortfolioCriteria criteria = new PortfolioCriteria();
+        BooleanFilter isShow = new BooleanFilter();
+        isShow.setEquals(true);
+        criteria.setIsShow(isShow);
         if (Optional.ofNullable(name).isPresent()) {
             StringFilter stringFilter = new StringFilter();
             stringFilter.setContains(name);
             criteria.setName(stringFilter);
         }
+        if (Optional.ofNullable(typeTag).isPresent()) {
+            StringFilter stringFilter = new StringFilter();
+            stringFilter.setContains(typeTag);
+            criteria.setTypeTag(stringFilter);
+        }
+
         Page<PortfolioVM> byCriteria = portfolioQueryService.findByCriteria(criteria, generatePageable(page, size, sortName, sort));
         return ResponseEntity.ok()
             .headers(HeaderUtils.createHeadersWithTotalCount(byCriteria))
@@ -153,6 +171,9 @@ public class WechatResource implements WechatApi {
     @Override
     public ResponseEntity<List<PortfolioItemVM>> findPortfolioItemByCriteria(String uuid, Integer page, Integer size, String sortName, String sort) {
         PortfolioItemCriteria criteria = new PortfolioItemCriteria();
+        BooleanFilter isShow = new BooleanFilter();
+        isShow.setEquals(true);
+        criteria.setIsShow(isShow);
         if (Optional.ofNullable(uuid).isPresent()) {
             StringFilter stringFilter = new StringFilter();
             stringFilter.setContains(uuid);

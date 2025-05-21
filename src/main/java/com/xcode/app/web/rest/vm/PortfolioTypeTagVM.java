@@ -5,25 +5,15 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
-import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class PortfolioVM extends BaseEntity implements Serializable {
+public class PortfolioTypeTagVM extends BaseEntity implements Serializable {
 
     private Long id;
 
     private String name;
 
-    private String imageUuid;
-
     private String desc;
 
-    private Integer sortOrder;
-
-    private Boolean isShow = false;
-
-    private String typeTag;
-
-    private List<PortfolioItemVM> portfolioItemList;
 }

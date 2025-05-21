@@ -117,4 +117,9 @@ public class PortfolioServiceImpl implements PortfolioService {
         portfolioItemRepository.delete(portfolioItem);
     }
 
+    @Override
+    public List<String> findDistinctTypeTags() {
+        return repository.findDistinctTypeTags();
+    }
+
 }

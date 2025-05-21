@@ -1,5 +1,6 @@
 package com.xcode.app.web.rest.filter;
 
+import io.github.jhipster.service.filter.BooleanFilter;
 import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
@@ -29,4 +30,6 @@ public class PortfolioItemCriteria implements Serializable {
     private StringFilter uuid;
 
     private StringFilter portfolioUuid;
+
+    private BooleanFilter isShow;
 }

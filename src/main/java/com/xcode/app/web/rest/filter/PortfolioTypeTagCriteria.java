@@ -1,7 +1,5 @@
 package com.xcode.app.web.rest.filter;
 
-import io.github.jhipster.service.filter.BooleanFilter;
-import io.github.jhipster.service.filter.IntegerFilter;
 import io.github.jhipster.service.filter.LongFilter;
 import io.github.jhipster.service.filter.StringFilter;
 import lombok.Data;
@@ -9,15 +7,13 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class PortfolioCriteria implements Serializable {
+public class PortfolioTypeTagCriteria implements Serializable {
 
     private LongFilter id;
 
-    private StringFilter imageUuid;
-
     private StringFilter name;
 
-    private IntegerFilter sortOrder;
+    private StringFilter desc;
 
     private StringFilter createdBy;
 
@@ -28,9 +24,5 @@ public class PortfolioCriteria implements Serializable {
     private LocalDateTimeFilter lastModifiedTime;
 
     private StringFilter uuid;
-
-    private BooleanFilter isShow;
-
-    private StringFilter typeTag;
 
 }

@@ -3,6 +3,8 @@ package com.xcode.app.service;
 import com.xcode.app.web.rest.dto.CreatePortfolioItemDTO;
 import com.xcode.app.web.rest.vm.PortfolioVM;
 
+import java.util.List;
+
 public interface PortfolioService {
 
     PortfolioVM save(PortfolioVM vm);
@@ -21,5 +23,6 @@ public interface PortfolioService {
 
     void deletePortfolioItem(String uuid);
 
+    List<String> findDistinctTypeTags();
 
 }
